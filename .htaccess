@@ -1,0 +1,17 @@
+Options -Indexes
+DirectoryIndex index.html index.php
+
+# Old pages from the previous site now point to the matching part of the new one
+RewriteEngine On
+RewriteRule ^solutions\.html$ /#product [R=301,NE,L]
+RewriteRule ^sectors\.html$ /#sectors [R=301,NE,L]
+RewriteRule ^security\.html$ /#security [R=301,NE,L]
+RewriteRule ^ecosystem\.html$ /#integrations [R=301,NE,L]
+RewriteRule ^pricing\.html$ /#pilot [R=301,NE,L]
+RewriteRule ^signup\.html$ /#contact [R=301,NE,L]
+RewriteRule ^login\.html$ https://app.assurestream.com/ [R=301,L]
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

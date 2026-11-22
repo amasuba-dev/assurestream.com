@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AssureStream: AI quality assurance and agent assist for regulated contact centres</title>
+<meta name="description" content="AssureStream scores every call, chat and email against your own quality and compliance rules, sends every finding to a named person, and gives compliance teams the evidence regulators ask for.">
+<meta property="og:title" content="AssureStream: check every customer conversation, not a sample">
+<meta property="og:description" content="AI quality assurance, agent assist and coaching for banks, revenue authorities, telecoms, utilities and outsourced contact centres.">
+<link rel="stylesheet" href="fonts/fonts.css">
+<script src="globe.js" defer></script>
+<style>
+:root{--ink:#161616;--ink2:#525252;--help:#6f6f6f;--paper:#fff;--mist:#f4f4f4;--line:#e0e0e0;--pri:#0f62fe;--pri-h:#0353e9;--pri-l:#edf5ff;--pass:#198038;--flag:#8e6a00;--fail:#da1e28;--sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI','Noto Sans','Noto Sans Arabic','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--pri)}a:hover{color:var(--pri-h)}:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}@media (max-width:672px){.wrap{padding:0 18px}}
+.skip{position:absolute;left:-999px;top:0;background:var(--pri);color:#fff;padding:12px 16px;z-index:100}.skip:focus{left:0}
+/* header */
+header.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;height:64px;gap:8px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:600;font-size:18px;margin-right:28px}
+nav.main{display:flex;gap:4px}nav.main a{color:var(--ink2);text-decoration:none;font-size:15px;padding:8px 12px;border-radius:6px}nav.main a:hover{background:var(--mist);color:var(--ink)}
+.sp{flex:1}
+.cta{display:inline-flex;align-items:center;gap:10px;height:42px;padding:0 18px;border-radius:6px;background:var(--pri);color:#fff;text-decoration:none;font-size:15px;font-weight:500;border:1px solid var(--pri);cursor:pointer;font-family:inherit}
+.cta:hover{background:var(--pri-h);color:#fff}.cta.alt{background:#fff;color:var(--ink);border-color:var(--line)}.cta.alt:hover{border-color:var(--ink);color:var(--ink)}
+.cta.lg{height:52px;padding:0 24px;font-size:16px}
+header .qxg>.qxg-b{color:var(--ink2);height:42px;border-radius:6px}header .qxg>.qxg-b:hover,header .qxg.open>.qxg-b{background:var(--mist);color:var(--ink)}
+header .qxg>.qxg-b:focus-visible{outline-color:var(--pri)}
+header .qxg .qxg-m{background:#fff;border-color:var(--line);border-radius:8px}header .qxg .qxg-m button{color:var(--ink2)}header .qxg .qxg-m button:hover,header .qxg .qxg-m button:focus-visible{background:var(--mist);color:var(--ink)}header .qxg .qxg-m button[aria-checked=true]{color:var(--ink)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;color:var(--ink)}
+@media (max-width:1000px){nav.main{display:none;position:fixed;top:64px;left:0;right:0;background:#fff;flex-direction:column;padding:8px 16px 16px;border-bottom:1px solid var(--line)}body.nav-open nav.main{display:flex}.burger{display:block;margin-left:-10px}header .cta .long{display:none}}
+/* hero */
+.hero{padding:72px 0 96px;background:#fff;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}@media (max-width:1000px){.hero-grid{grid-template-columns:1fr}}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--ink2);margin:0 0 20px}
+.kicker b{white-space:nowrap;font:500 12px var(--mono);color:var(--pri);background:var(--pri-l);padding:3px 8px;border-radius:4px}
+h1{font-size:clamp(38px,5.2vw,62px);line-height:1.06;letter-spacing:-1px;font-weight:600;margin:0 0 22px;max-width:15ch}
+h1 .soft{color:var(--help);font-weight:400}
+.lead{font-size:19px;color:var(--ink2);max-width:46ch;margin:0 0 34px}
+.hero .row{display:flex;gap:12px;flex-wrap:wrap}
+.proof{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:34px;font-size:14px;color:var(--ink2)}.proof span{display:inline-flex;gap:8px;align-items:center}.proof svg{color:var(--pass)}
+/* review card */
+.review{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 24px 48px -24px rgba(14,27,43,.28);overflow:hidden;font-size:14px}
+.rv-h{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--mist)}
+.rv-h .id{font:500 13px var(--mono)}.rv-h .meta{color:var(--help);font-size:13px}.rv-h .sample{margin-left:auto;font:500 11px var(--mono);color:var(--ink2);border:1px solid var(--line);padding:2px 7px;border-radius:4px;background:#fff}
+.rv-b{display:grid;grid-template-columns:1.2fr 1fr}@media (max-width:560px){.rv-b{grid-template-columns:1fr}}
+.tx{padding:16px 18px;border-right:1px solid var(--line);display:grid;gap:10px;align-content:start}
+.ln{display:grid;grid-template-columns:54px 1fr;gap:8px}.ln .who{font:500 11px var(--mono);color:var(--help);padding-top:2px}.ln p{margin:0}
+.ln mark{background:#fcf4d6;color:inherit;border-bottom:2px solid var(--flag);padding:0 2px}
+.ln.ag mark.ok{background:#defbe6;border-color:var(--pass)}
+.sc{padding:16px 18px;display:grid;gap:8px;align-content:start}
+.sc h4{margin:0 0 4px;font:500 12px var(--mono);color:var(--help)}
+.ck{display:flex;gap:8px;align-items:flex-start;opacity:0;transform:translateY(4px);animation:in .4s ease forwards}
+.ck i{flex:none;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;color:#fff;font-style:normal;font-size:11px;margin-top:1px}
+.ck.p i{background:var(--pass)}.ck.f i{background:var(--flag)}.ck.x i{background:var(--fail)}
+.ck small{display:block;color:var(--help);font-size:12px}
+.score{margin-top:8px;padding-top:12px;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:10px;opacity:0;animation:in .4s ease forwards}.score b{font-size:30px;font-weight:600}.score span{color:var(--help);font-size:13px}
+@keyframes in{to{opacity:1;transform:none}}
+.ck:nth-child(2){animation-delay:.5s}.ck:nth-child(3){animation-delay:.9s}.ck:nth-child(4){animation-delay:1.3s}.ck:nth-child(5){animation-delay:1.7s}.ck:nth-child(6){animation-delay:2.1s}.score{animation-delay:2.6s}
+/* sections */
+section{padding:96px 0}section.mist{background:var(--mist)}section.ink{background:var(--ink);color:#e8e8e8}
+.eb{font:500 13px var(--mono);color:var(--pri);margin:0 0 14px}section.ink .eb{color:#78a9ff}
+h2{font-size:clamp(30px,3.4vw,44px);line-height:1.15;letter-spacing:-.5px;font-weight:600;margin:0 0 16px;max-width:24ch}
+.sub{font-size:18px;color:var(--ink2);max-width:62ch;margin:0 0 48px}section.ink .sub{color:#c6c6c6}
+h3{font-size:20px;line-height:1.3;font-weight:600;margin:0 0 8px}
+/* modules */
+.mods{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}@media (max-width:800px){.mods{grid-template-columns:1fr}}
+.mod{background:#fff;border:1px solid var(--line);border-radius:12px;padding:28px;display:flex;flex-direction:column}
+.mod .nm{font:500 12px var(--mono);color:var(--help);margin-bottom:10px}
+.mod p{color:var(--ink2);margin:0 0 18px}
+.mod ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}.mod li{padding:9px 0 9px 26px;border-bottom:1px solid var(--line);position:relative;font-size:15px}
+.mod li::before{content:"";position:absolute;left:2px;top:15px;width:11px;height:6px;border-left:2px solid var(--pri);border-bottom:2px solid var(--pri);transform:rotate(-45deg)}
+.mod .st{margin-top:18px;font-size:13px;color:var(--help)}.mod .st b{color:var(--pass);font-weight:500}
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:f}@media (max-width:900px){.flow{grid-template-columns:1fr 1fr}}@media (max-width:560px){.flow{grid-template-columns:1fr}}
+.fs{padding:26px 24px 26px 0;border-top:2px solid var(--ink);margin-right:24px}
+.fs .n{font:500 13px var(--mono);color:var(--pri);margin-bottom:12px}.fs p{color:var(--ink2);margin:0;font-size:15px}
+/* sectors */
+.secs{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+@media (max-width:1000px){.secs{grid-template-columns:repeat(2,1fr)}}@media (max-width:560px){.secs{grid-template-columns:1fr}}
+.sec{background:#fff;padding:24px}.sec p{color:var(--ink2);font-size:15px;margin:0 0 12px}.sec .q{font:500 12px var(--mono);color:var(--help)}
+/* calculator */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}@media (max-width:900px){.calc{grid-template-columns:1fr}}
+.cin{padding:28px;display:grid;gap:18px;border-right:1px solid var(--line)}
+.cin label{display:grid;gap:6px;font-size:14px;color:var(--ink2)}
+.cin .rng{display:grid;grid-template-columns:1fr 92px;gap:12px;align-items:center}
+.cin input[type=range]{width:100%;accent-color:var(--pri)}
+.cin input[type=number]{font:500 15px var(--mono);padding:8px 10px;border:1px solid var(--line);border-radius:6px;width:100%;color:var(--ink)}
+.cout{padding:28px;background:var(--ink);color:#e8e8e8;display:grid;gap:18px;align-content:start}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.kpi{border-top:1px solid #393939;padding-top:12px}.kpi b{display:block;font-size:34px;font-weight:600;line-height:1.1;color:#fff}.kpi span{font-size:13px;color:#c6c6c6}
+.bar{height:14px;background:#393939;border-radius:7px;overflow:hidden;position:relative}.bar i{position:absolute;inset:0 auto 0 0;background:#f1c21b;border-radius:7px;transition:width .3s}
+.barl{display:flex;justify-content:space-between;font-size:12px;color:#c6c6c6;margin-top:6px}
+.cnote{font-size:12px;color:#a8a8a8}
+/* security */
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px 32px}@media (max-width:900px){.sgrid{grid-template-columns:1fr 1fr}}@media (max-width:560px){.sgrid{grid-template-columns:1fr}}
+.sgrid div{border-top:1px solid #393939;padding-top:16px}.sgrid p{color:#c6c6c6;margin:0;font-size:15px}
+.cert{margin-top:48px;padding:20px 24px;border:1px solid #393939;border-radius:10px;display:flex;gap:16px;align-items:flex-start;color:#c6c6c6;font-size:15px}.cert b{color:#fff}
+/* integrations */
+.ints{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}@media (max-width:900px){.ints{grid-template-columns:1fr}}
+.int{border:1px solid var(--line);border-radius:12px;padding:24px;background:#fff}.int .tg{display:inline-block;font:500 11px var(--mono);padding:2px 8px;border-radius:4px;margin-bottom:12px}
+.tg.ready{background:#defbe6;color:var(--pass)}.tg.req{background:#fcf4d6;color:var(--flag)}
+.mod .tg{align-self:flex-start;display:inline-block;font:500 11px var(--mono);padding:2px 8px;border-radius:4px;margin-bottom:12px}.mod .st{margin-top:auto;padding-top:18px}.mod .st a{color:var(--pri);font-weight:500}
+.int h3 a{color:inherit}nav.main a{white-space:nowrap}nav.main a.mob{display:none}@media (max-width:640px){nav.main a.mob{display:block}}.signin{color:inherit;text-decoration:none;font-size:15px;margin-right:16px;white-space:nowrap}.signin:hover{text-decoration:underline}@media (max-width:640px){.signin{display:none}}
+.int ul{margin:0;padding-left:18px;color:var(--ink2);font-size:15px}
+/* pilot */
+.pilot{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}@media (max-width:900px){.pilot{grid-template-columns:1fr}}
+.tl{border-left:2px solid var(--line);margin:0;padding:0;list-style:none}.tl li{padding:0 0 24px 24px;position:relative}.tl li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--pri)}
+.tl .w{font:500 12px var(--mono);color:var(--pri)}.tl p{margin:2px 0 0;color:var(--ink2);font-size:15px}
+.meas{background:#fff;border:1px solid var(--line);border-radius:12px;padding:28px}.meas ul{padding-left:18px;color:var(--ink2);margin:0 0 20px}.meas li{margin:0 0 8px}
+/* team */
+.team{display:grid;grid-template-columns:1.2fr 1fr;gap:56px}@media (max-width:900px){.team{grid-template-columns:1fr}}
+.team p{color:var(--ink2);font-size:17px}
+.rec{display:grid;gap:12px}.rec div{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:#fff}.rec b{display:block}.rec span{color:var(--help);font-size:14px}
+/* faq */
+.faq{max-width:860px}.faq details{border-bottom:1px solid var(--line);padding:18px 0}.faq summary{cursor:pointer;font-weight:600;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:400;color:var(--pri);font-size:22px;line-height:1}.faq details[open] summary::after{content:"\2212"}.faq p{color:var(--ink2);margin:12px 0 0}
+/* contact */
+.ct{display:grid;grid-template-columns:1fr 1.2fr;gap:56px}@media (max-width:900px){.ct{grid-template-columns:1fr}}
+form.cf{display:grid;grid-template-columns:1fr 1fr;gap:18px 14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:28px}@media (max-width:600px){form.cf{grid-template-columns:1fr}}
+form.cf .full{grid-column:1/-1}form.cf label{display:grid;gap:6px;font-size:13px;color:var(--ink2)}
+form.cf input,form.cf select,form.cf textarea{font:400 15px var(--sans);padding:10px 12px;border:1px solid var(--line);border-radius:6px;color:var(--ink);background:#fff;width:100%}
+form.cf textarea{min-height:110px;resize:vertical}form.cf input:focus,form.cf select:focus,form.cf textarea:focus{outline:2px solid var(--pri);outline-offset:0;border-color:var(--pri)}
+.hp{position:absolute;left:-5000px}#cfMsg{grid-column:1/-1;display:none;padding:12px 14px;border-radius:6px;background:var(--pri-l)}#cfMsg.err{background:#fff1f1}
+.note{font-size:13px;color:var(--help)}
+/* footer */
+footer{background:var(--ink);color:#c6c6c6;padding:56px 0 32px;font-size:14px}
+footer .cols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:32px;padding-bottom:40px;border-bottom:1px solid #393939}@media (max-width:800px){footer .cols{grid-template-columns:1fr 1fr}}
+footer h4{color:#fff;font-size:14px;font-weight:500;margin:0 0 14px}footer ul{list-style:none;margin:0;padding:0}footer li{margin:0 0 9px}footer a{color:#c6c6c6;text-decoration:none}footer a:hover{color:#fff;text-decoration:underline}
+footer .legal{padding-top:22px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:12px;color:#8d8d8d}
+footer .brand{color:#fff}
+[dir=rtl] .mod li{padding:9px 26px 9px 0}[dir=rtl] .mod li::before{left:auto;right:2px}[dir=rtl] .fs{padding:26px 0 26px 24px;margin:0 0 0 24px}[dir=rtl] .tl{border-left:0;border-right:2px solid var(--line)}[dir=rtl] .tl li{padding:0 24px 24px 0}[dir=rtl] .tl li::before{left:auto;right:-7px}[dir=rtl] .cin{border-right:0;border-left:1px solid var(--line)}[dir=rtl] .tx{border-right:0;border-left:1px solid var(--line)}[dir=rtl] .brand{margin:0 0 0 28px}[dir=rtl] .rv-h .sample{margin:0 auto 0 0}
+body.i18n-busy main{opacity:.6;transition:opacity .2s}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><rect x="2" y="4" width="16" height="1.6"/><rect x="2" y="9.2" width="16" height="1.6"/><rect x="2" y="14.4" width="16" height="1.6"/></svg></button>
+    <a class="brand" href="#top" aria-label="AssureStream home"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="6" fill="#161616"/><path d="M5 15h3l2-6 3 10 2.5-7 1.5 3H21" fill="none" stroke="#78a9ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>AssureStream</a>
+    <nav class="main" id="nav" aria-label="Main"><a href="#product">Products</a><a href="#how">How it works</a><a href="#connected">Connected</a><a href="#sectors">Sectors</a><a href="#security">Security</a><a href="#integrations">Integrations</a><a class="mob" href="https://app.assurestream.com">Sign in</a></nav>
+    <span class="sp"></span>
+    <div class="qxg" data-langs="en,fr,pt,es,ar,zh,sw,de"></div>
+    <a class="signin" href="https://app.assurestream.com">Sign in</a>
+    <a class="cta" href="#contact"><span class="long">Book a demo</span><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M9.3 3.3 8.6 4l3.5 3.5H2v1h10.1L8.6 12l.7.7L14 8z"/></svg></a>
+  </div>
+</header>
+
+<main id="main">
+<div class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="kicker"><b>For regulated contact centres</b> Banks, revenue authorities, telecoms, utilities, BPOs</p>
+      <h1>Check every customer conversation. <span class="soft">Not a sample.</span></h1>
+      <p class="lead">AssureStream scores calls, chats and emails against your own quality and compliance rules, sends every finding to a named person with the evidence attached, and keeps whistleblowing reports sealed for your ethics office.</p>
+      <div class="row"><a class="cta lg" href="#contact">Book a demo <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M9.3 3.3 8.6 4l3.5 3.5H2v1h10.1L8.6 12l.7.7L14 8z"/></svg></a><a class="cta lg alt" href="https://app.assurestream.com/?demo=1">Open the live demo</a></div>
+      <div class="proof"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m6.5 12-4-4 .7-.7 3.3 3.3 6.3-6.3.7.7z"/></svg>Your rubric, not ours</span><span><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m6.5 12-4-4 .7-.7 3.3 3.3 6.3-6.3.7.7z"/></svg>Every score shows its evidence</span><span><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m6.5 12-4-4 .7-.7 3.3 3.3 6.3-6.3.7.7z"/></svg>Works with the phone system you run</span></div>
+    </div>
+    <div class="review" role="img" aria-label="Sample interaction review: a transcript with highlighted phrases and a scorecard of six checks, scoring 82 out of 100.">
+      <div class="rv-h"><span class="id">INT-20418</span><span class="meta">Voice, 6 min 12 s, billing dispute</span><span class="sample">Sample data</span></div>
+      <div class="rv-b">
+        <div class="tx">
+          <div class="ln ag"><span class="who">Agent</span><p><mark class="ok">Good morning, you are speaking to Thandi.</mark> For security, may I confirm your account number?</p></div>
+          <div class="ln"><span class="who">Customer</span><p>I was charged twice this month and nobody is helping me.</p></div>
+          <div class="ln ag"><span class="who">Agent</span><p>I understand. <mark class="ok">I can see both charges and will reverse the duplicate today.</mark></p></div>
+          <div class="ln"><span class="who">Customer</span><p>And I want to complain formally.</p></div>
+          <div class="ln ag"><span class="who">Agent</span><p><mark>Okay, is there anything else?</mark></p></div>
+        </div>
+        <div class="sc">
+          <h4>Scorecard: Billing v3</h4>
+          <div class="ck p"><i>&#10003;</i><div>Greeting and identification</div></div>
+          <div class="ck p"><i>&#10003;</i><div>Identity verified before account details</div></div>
+          <div class="ck p"><i>&#10003;</i><div>Resolution offered with a time frame</div></div>
+          <div class="ck x"><i>!</i><div>Complaint not logged<small>Customer asked to complain formally; no complaint reference given.</small></div></div>
+          <div class="ck f"><i>?</i><div>Empathy<small>Sent to a reviewer: confidence below threshold.</small></div></div>
+          <div class="score"><b>82</b><span>out of 100, 1 compliance breach, 1 for human review</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="product">
+  <div class="wrap">
+    <p class="eb">Product</p>
+    <h2>Three products live today, three on the way</h2>
+    <p class="sub">Start with what solves today's problem. Every product shares the same transcripts, rules and access controls, so adding the next is configuration, not a new project.</p>
+    <div class="mods">
+      <article class="mod" id="voicestream"><span class="tg ready">Available now</span><p class="nm">Call quality and speech analytics</p><h3>VoiceStream</h3><p>Every call, chat and email is transcribed, stripped of card numbers and scored against your own scorecard. Each result quotes the words that earned or lost the point, so a reviewer can hear the moment in one click.</p><ul><li>Your scorecards, weights and critical items</li><li>Complaints, mis-selling, vulnerable customers and fraud risk flagged with the quote</li><li>Card numbers, security codes and ID numbers removed before storage</li><li>Any language transcribed; reports in yours</li></ul><p class="st"><a href="https://app.assurestream.com/?demo=1">Try it in the live demo</a></p></article>
+      <article class="mod" id="veritas"><span class="tg ready">Available now</span><p class="nm">Governance, follow-up and protected disclosures</p><h3>Veritas</h3><p>Every finding reaches a named person and every step is on the record. Flags become Touchpoint tickets or meeting agenda items, reviewers calibrate the AI, and whistleblowing reports are sealed away from everyone but the ethics office.</p><ul><li>Routing rules by finding, severity and unit</li><li>Locked audit trail of people, rules, flags and reviews</li><li>Human review of AI scores, kept for calibration</li><li>Sealed vault and anonymous reporting line</li></ul><p class="st"><a href="https://app.assurestream.com/?demo=1">Try it in the live demo</a></p></article>
+      <article class="mod" id="insightstream"><span class="tg ready">Available now</span><p class="nm">Knowledge graph and reporting</p><h3>InsightStream</h3><p>A knowledge graph of why customers call, opened department by department down to a single call, with quality scores alongside the volumes your phone system reports.</p><ul><li>Teams, agents, reasons, products, complaints and gaps linked</li><li>Quality by team, agent and scorecard item</li><li>Volumes from Cisco AW/HDS and other platforms</li><li>Live board of calls and agents</li></ul><p class="st"><a href="https://app.assurestream.com/?demo=1">Try it in the live demo</a></p></article>
+      <article class="mod" id="contactstream"><span class="tg req">Coming soon</span><p class="nm">Real-time agent assist</p><h3>ContactStream</h3><p>Prompts while the customer is still on the line: the right answer from your knowledge base, a missed disclosure, a warning before a promise that breaks policy.</p><ul><li>Live audio from Cisco CUBE, Genesys AudioHook or Amazon Connect</li><li>Answers grounded in documents you approve</li><li>Compliance warnings before the call ends</li><li>Agent desktop gadget, including Cisco Finesse</li></ul><p class="st"><a href="#contact" data-need="Pilot">Built with pilot clients; ask to join</a></p></article>
+      <article class="mod" id="trainstream"><span class="tg req">Coming soon</span><p class="nm">Coaching from real calls</p><h3>TrainStream</h3><p>Coaching plans built from the calls each agent actually handled: the items they miss, the questions they could not answer, and examples from colleagues who handled the same situation well.</p><ul><li>Coaching plans linked to evidence</li><li>Skills gaps by agent and team</li><li>Practice from anonymised real calls</li><li>Progress tracked on later calls</li></ul><p class="st"><a href="#contact" data-need="Pilot">Built with pilot clients; ask to join</a></p></article>
+      <article class="mod" id="sentinelstream"><span class="tg req">Coming soon</span><p class="nm">Fraud and risk patterns</p><h3>SentinelStream</h3><p>Looks across many calls for patterns no single reviewer would spot: the same script from different callers, repeated attempts on one account, social engineering aimed at agents.</p><ul><li>Patterns across calls, callers and agents</li><li>Impersonation and social engineering scripts</li><li>Alerts to fraud teams as Touchpoint tickets</li><li>Evidence trail for investigators</li></ul><p class="st"><a href="#contact" data-need="Pilot">Built with pilot clients; ask to join</a></p></article>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="mist">
+  <div class="wrap">
+    <p class="eb">How it works</p>
+    <h2>From recording to evidence in four steps</h2>
+    <p class="sub">AssureStream sits beside your contact centre platform. Nothing you run today has to be replaced.</p>
+    <div class="flow">
+      <div class="fs"><div class="n">01 Connect</div><h3>Bring in conversations</h3><p>Recordings, transcripts, chats and emails from your platform, by API, secure file transfer or an on-site edge agent.</p></div>
+      <div class="fs"><div class="n">02 Score</div><h3>Apply your rules</h3><p>Speech is transcribed, then each interaction is scored against your scorecards, with the quoted evidence for every result.</p></div>
+      <div class="fs"><div class="n">03 Act</div><h3>Route to a person</h3><p>Each flag becomes a Touchpoint ticket for the right unit, an item on the next meeting agenda, or a sealed case for the ethics office.</p></div>
+      <div class="fs"><div class="n">04 Govern</div><h3>Keep humans accountable</h3><p>Reviewers confirm or override AI scores, every change is logged, and reports export for audit and regulators.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="connected">
+  <div class="wrap">
+    <p class="eb">Connected</p>
+    <h2>Findings become work, not spreadsheets</h2>
+    <p class="sub">AssureStream is part of the Qextec platform. Each product runs on its own, and together they close the loop from a customer's words to a fixed problem.</p>
+    <div class="ints">
+      <div class="int"><span class="tg ready">Qextec</span><h3><a href="https://touchpoint.qextec.com">Touchpoint</a></h3><ul><li>A flag on a call becomes a ticket for the unit manager</li><li>Priority from severity, with a link to the moment in the call</li><li>Closing the ticket resolves the flag</li></ul></div>
+      <div class="int"><span class="tg ready">Qextec</span><h3><a href="https://meetings.qextec.com">Meetings</a></h3><ul><li>Knowledge gaps go on the unit's next agenda</li><li>Actions in approved minutes become Touchpoint tickets</li><li>Escalated tickets are raised at the next meeting</li></ul></div>
+      <div class="int"><span class="tg req">Sealed</span><h3><a href="https://vault.assurestream.com">Confidential reporting</a></h3><ul><li>Protected disclosures never enter ordinary queues</li><li>Anonymous reporting with a reference and passcode</li><li>Ethics officers only; every opening logged</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="sectors">
+  <div class="wrap">
+    <p class="eb">Sectors</p>
+    <h2>Built for conversations that carry legal and financial weight</h2>
+    <p class="sub">The same platform, configured for the rules each sector answers to.</p>
+    <div class="secs">
+      <div class="sec"><h3>Revenue authorities</h3><p>Consistent, policy-correct answers to taxpayers, and proof that every call met service standards.</p><p class="q">Tax scripts, complaint capture, service levels</p></div>
+      <div class="sec"><h3>Banks and insurers</h3><p>Disclosures, affordability and complaint rules checked on every interaction, not just the ones sampled.</p><p class="q">Conduct, disclosures, vulnerable customers</p></div>
+      <div class="sec"><h3>Telecoms</h3><p>Fewer repeat calls and billing disputes, with the reasons visible across every channel.</p><p class="q">Billing, retention, regulator complaints</p></div>
+      <div class="sec"><h3>Utilities and public services</h3><p>Outage and billing conversations handled the same way at every desk, in every language.</p><p class="q">Outages, metering, citizen service charters</p></div>
+      <div class="sec"><h3>Outsourced contact centres</h3><p>Show each client full QA coverage and evidence, with every client's data kept separate.</p><p class="q">Multi-client scorecards and reporting</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="estimate" class="mist">
+  <div class="wrap">
+    <p class="eb">Estimate</p>
+    <h2>How much of your contact centre does QA see today?</h2>
+    <p class="sub">Enter your own numbers. The estimate runs in your browser and nothing is sent anywhere.</p>
+    <div class="calc">
+      <div class="cin">
+        <label>Agents<div class="rng"><input type="range" id="r-agents" min="5" max="2000" step="5" value="120"><input type="number" id="n-agents" min="1" max="20000" value="120"></div></label>
+        <label>Interactions per agent per day<div class="rng"><input type="range" id="r-ipd" min="5" max="150" value="45"><input type="number" id="n-ipd" min="1" max="500" value="45"></div></label>
+        <label>Working days per month<div class="rng"><input type="range" id="r-days" min="15" max="31" value="22"><input type="number" id="n-days" min="1" max="31" value="22"></div></label>
+        <label>Reviews per agent per month today<div class="rng"><input type="range" id="r-rev" min="1" max="40" value="5"><input type="number" id="n-rev" min="0" max="1000" value="5"></div></label>
+        <label>Minutes per manual review<div class="rng"><input type="range" id="r-min" min="5" max="45" value="15"><input type="number" id="n-min" min="1" max="120" value="15"></div></label>
+      </div>
+      <div class="cout" aria-live="polite">
+        <div class="big"><div class="kpi"><b id="o-total">0</b><span>interactions a month</span></div><div class="kpi"><b id="o-cov">0%</b><span>reviewed today</span></div><div class="kpi"><b id="o-unseen">0</b><span>never reviewed each month</span></div><div class="kpi"><b id="o-hours">0</b><span>QA hours a month today</span></div></div>
+        <div><div class="bar"><i id="o-bar" style="width:0"></i></div><div class="barl"><span id="o-barl">Today</span><span>With AssureStream: every interaction scored</span></div></div>
+        <p id="o-text"></p>
+        <p class="cnote">Estimates from your inputs only. With AssureStream, reviewers spend their time on flagged and low-confidence interactions instead of random samples.</p>
+        <a class="cta" href="#contact" data-need="Pilot">Plan a pilot with these numbers</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="security" class="ink">
+  <div class="wrap">
+    <p class="eb">Security and governance</p>
+    <h2>Built for organisations that are audited</h2>
+    <p class="sub">Conversations contain personal and financial data. These are the controls we build in, and how we describe them: precisely.</p>
+    <div class="sgrid">
+      <div><h3>Tenant isolation in the database</h3><p>Each client's data is separated by row-level security enforced in the database itself, not only in the application.</p></div>
+      <div><h3>Encryption</h3><p>Data is encrypted in transit with TLS and at rest by the hosting platform, in the region you choose.</p></div>
+      <div><h3>Card data kept out</h3><p>Card numbers, security codes and ID numbers are removed from transcripts before anything is stored.</p></div>
+      <div><h3>No training on your data</h3><p>Your conversations are processed to deliver your service and are never used to train shared models.</p></div>
+      <div><h3>Role-based access and audit</h3><p>Agents, supervisors, QA and compliance see only what their role allows; every view, score change and export is logged.</p></div>
+      <div><h3>Sealed whistleblowing channel</h3><p>Protected disclosures are encrypted with a key outside the database, readable only by appointed ethics officers, and held under legal hold.</p></div>
+      <div><h3>Human oversight</h3><p>AI scores are explainable and can be overridden; low-confidence results go to people by design.</p></div>
+    </div>
+    <div class="cert"><svg width="22" height="22" viewBox="0 0 32 32" fill="#78a9ff" aria-hidden="true"><path d="M16 2 4 7v8c0 7.6 5.1 13.8 12 15 6.9-1.2 12-7.4 12-15V7Zm-1.5 20.4-5.2-5.2 1.4-1.4 3.8 3.8 7.8-7.8 1.4 1.4Z"/></svg><div><b>Certifications.</b> AssureStream is designed to help clients meet POPIA, GDPR and sector conduct rules. We are preparing for independent SOC 2 and ISO 27001 assessment and do not claim either certification yet. Our security documentation and data processing agreement are available under NDA.</div></div>
+  </div>
+</section>
+
+<section id="integrations">
+  <div class="wrap">
+    <p class="eb">Integrations</p>
+    <h2>Works with the contact centre you already run</h2>
+    <p class="sub">We are clear about what is ready today and what we build with you during a pilot. CUIC is a reporting tool with no audio, so we connect to the layers beneath it.</p>
+    <div class="ints">
+      <div class="int"><span class="tg ready">Available</span><h3>Ready today</h3><ul><li>Cisco UCCE, PCCE and UCCX: recorder export and AW/HDS reporting data through the on-site edge agent</li><li>Genesys Cloud and Amazon Connect recordings</li><li>Any platform: recordings, chats and emails by API</li><li>Signed webhooks to ServiceNow, Jira or Teams</li></ul></div>
+      <div class="int"><span class="tg req">During a pilot</span><h3>Built with you</h3><ul><li>Live audio: SIPREC from Cisco CUBE, Genesys AudioHook, Amazon Connect streams</li><li>Cisco Finesse agent desktop gadget</li><li>Salesforce and Dynamics 365 case links</li><li>NICE, Five9, Talkdesk, Avaya and others</li></ul></div>
+      <div class="int"><span class="tg ready">Available</span><h3>Languages</h3><ul><li>Transcription and analysis in any language your callers use</li><li>Reports in your organisation's language</li><li>Website in eight languages</li></ul></div>
+    </div>
+    <p style="margin-top:24px"><a class="cta alt" href="https://connect.assurestream.com">Read the integration guide</a></p>
+  </div>
+</section>
+
+<section id="pilot" class="mist">
+  <div class="wrap pilot">
+    <div>
+      <p class="eb">Pilot</p>
+      <h2>Prove it on your own conversations in eight weeks</h2>
+      <p class="sub" style="margin-bottom:32px">A fixed-scope pilot with one team, measured against a baseline you agree up front. You decide on the results.</p>
+      <ol class="tl">
+        <li><span class="w">Weeks 1 to 2</span><h3>Set up and baseline</h3><p>Connect a sample of recordings, encode your scorecard, measure today's QA coverage and results.</p></li>
+        <li><span class="w">Weeks 3 to 4</span><h3>Calibrate</h3><p>Compare AI scores with your QA team's on the same interactions and tune until they agree.</p></li>
+        <li><span class="w">Weeks 5 to 7</span><h3>Run live</h3><p>Score every interaction for the pilot team; supervisors use alerts and coaching views.</p></li>
+        <li><span class="w">Week 8</span><h3>Evaluate</h3><p>A results report against the agreed measures and a costed plan for roll-out, or a clean exit.</p></li>
+      </ol>
+    </div>
+    <div class="meas">
+      <h3>What we measure together</h3>
+      <ul><li>Share of interactions reviewed, before and after</li><li>Agreement between AI and your QA team</li><li>Compliance breaches found that sampling missed</li><li>Reviewer hours per week</li><li>Change in first-contact resolution and complaints</li></ul>
+      <h3>Pricing</h3>
+      <p style="color:var(--ink2);margin:0 0 20px">Priced per agent per month, with volume tiers, after the pilot shows the value. Pilot fees are fixed and agreed before we start.</p>
+      <a class="cta" href="#contact" data-need="Pilot">Discuss a pilot</a>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="wrap team">
+    <div>
+      <p class="eb">Why us</p>
+      <h2>Built by people who have done contact centre QA by hand</h2>
+      <p>AssureStream was started by Aaron Masuba, an AI engineer who worked in quality monitoring and reporting in a national revenue authority's contact centre. He saw how much a small review sample misses, and how much time supervisors spend proving what happened on a call.</p>
+      <p>The platform is built on that experience: your rules come first, every AI judgement shows its evidence, and people stay accountable for the decisions that matter.</p>
+    </div>
+    <div class="rec">
+      <div><b>SATNAC 2025 Industry Solutions Challenge</b><span>Winner of the Telkom-sponsored topic, Enhancing Customer Experience in Telecommunications</span></div>
+      <div><b>Nasdaq Entrepreneurial Center, Milestone Makers</b><span>Semifinalist, Summer 2026 Ethical AI cohort</span></div>
+      <div><b>Developed by Afrosoltech (Pty) Ltd</b><span>Registered in South Africa; part of the Qextec family of AI products</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="mist">
+  <div class="wrap">
+    <p class="eb">Questions</p>
+    <h2>What buyers usually ask</h2>
+    <div class="faq">
+      <details><summary>How accurate are the AI scores?</summary><p>Accuracy depends on your scorecard and audio quality, so we measure it on your own interactions during the pilot by comparing AI scores with your QA team's. Results below a confidence threshold you set go to a human reviewer instead of being reported automatically.</p></details>
+      <details><summary>Do we have to change our contact centre platform?</summary><p>No. AssureStream works beside your platform, using recordings, transcripts and your reporting data. Integrations that are not ready today are built during the pilot.</p></details>
+      <details><summary>Where is our data stored, and who can see it?</summary><p>In the region or on the servers you choose. Access is limited by role, every access is logged, and your data is never used to train shared models.</p></details>
+      <details><summary>Which languages do you support?</summary><p>Calls are transcribed and analysed in the language spoken, and reports follow your organisation's language. Transcription covers the languages supported by the speech provider used in your deployment.</p></details>
+      <details><summary>Are you SOC 2 or ISO 27001 certified?</summary><p>Not yet. We are preparing for independent assessment and share our security documentation, architecture and data processing agreement under NDA so your security team can review them.</p></details>
+      <details><summary>How long until we see results?</summary><p>The pilot runs for eight weeks, with the first scored interactions usually in the second week once recordings and your scorecard are connected.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap ct">
+    <div>
+      <p class="eb">Contact</p>
+      <h2>See AssureStream on your own scorecard</h2>
+      <p class="sub">Tell us about your contact centre. We reply within one business day to arrange a 30-minute demo.</p>
+      <p style="color:var(--ink2)">Email: <a href="mailto:sales@assurestream.com">sales@assurestream.com</a><br>Phone and WhatsApp: <a href="tel:+27645542093">+27 64 554 2093</a></p>
+    </div>
+    <form class="cf" id="cf" novalidate>
+      <label>Full name<input name="name" required maxlength="120" autocomplete="name"></label>
+      <label>Organisation<input name="org" required maxlength="160" autocomplete="organization"></label>
+      <label>Work email<input name="email" type="email" required maxlength="160" autocomplete="email"></label>
+      <label>Phone (optional)<input name="phone" maxlength="40" autocomplete="tel"></label>
+      <label>Country<input name="country" maxlength="80" autocomplete="country-name"></label>
+      <label>Number of agents<select name="need" id="need"><option value="Demo, under 50 agents">Under 50</option><option value="Demo, 50 to 250 agents">50 to 250</option><option value="Demo, 250 to 1,000 agents">250 to 1,000</option><option value="Demo, over 1,000 agents">Over 1,000</option><option value="Pilot">Ready to discuss a pilot</option></select></label>
+      <label class="full">What would you like to improve?<textarea name="message" maxlength="3000" placeholder="For example: complaint handling, disclosures, QA coverage, agent onboarding."></textarea></label>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div id="cfMsg" role="status"></div>
+      <p class="note full">We use these details only to reply to you. See our <a href="privacy.html">privacy notice</a>.</p>
+      <div class="full"><button class="cta lg" type="submit">Request a demo</button></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><a class="brand" href="#top"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="6" fill="#262626"/><path d="M5 15h3l2-6 3 10 2.5-7 1.5 3H21" fill="none" stroke="#78a9ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>AssureStream</a><p style="max-width:36ch;margin-top:14px">Call quality, compliance and follow-up for regulated contact centres.</p></div>
+      <div><h4>Products</h4><ul><li><a href="#voicestream">VoiceStream</a></li><li><a href="#veritas">Veritas</a></li><li><a href="#insightstream">InsightStream</a></li><li><a href="#contactstream">ContactStream (soon)</a></li><li><a href="#trainstream">TrainStream (soon)</a></li><li><a href="#sentinelstream">SentinelStream (soon)</a></li></ul></div>
+      <div><h4>Platform</h4><ul><li><a href="https://app.assurestream.com">Sign in</a></li><li><a href="https://app.assurestream.com/?demo=1">Live demo</a></li><li><a href="https://connect.assurestream.com">Integration guide</a></li><li><a href="https://vault.assurestream.com">Confidential reporting</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#team">Why us</a></li><li><a href="#security">Security</a></li><li><a href="#pilot">Pilot</a></li><li><a href="https://qextec.com">Qextec</a></li><li><a href="https://touchpoint.qextec.com">Touchpoint</a></li><li><a href="https://meetings.qextec.com">Meetings</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="mailto:sales@assurestream.com">sales@assurestream.com</a></li><li><a href="#contact">Book a demo</a></li><li><a href="privacy.html">Privacy notice</a></li></ul></div>
+    </div>
+    <div class="legal"><span>AssureStream is developed by Afrosoltech (Pty) Ltd, registered in South Africa.</span><span>&copy; <span id="yr">2026</span> Afrosoltech (Pty) Ltd</span></div>
+  </div>
+</footer>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const bg = $('burger');
+  bg.addEventListener('click', () => { const o = document.body.classList.toggle('nav-open'); bg.setAttribute('aria-expanded', o); });
+  $('nav').addEventListener('click', e => { if (e.target.closest('a')) { document.body.classList.remove('nav-open'); bg.setAttribute('aria-expanded', false); } });
+  $('yr').textContent = new Date().getFullYear();
+
+  /* coverage estimate */
+  const F = ['agents', 'ipd', 'days', 'rev', 'min'];
+  const nf = n => Math.round(n).toLocaleString(document.documentElement.lang || 'en');
+  function calc() {
+    const v = Object.fromEntries(F.map(k => [k, Math.max(0, Number($('n-' + k).value) || 0)]));
+    const total = v.agents * v.ipd * v.days, reviewed = Math.min(total, v.agents * v.rev), cov = total ? reviewed / total * 100 : 0;
+    $('o-total').textContent = nf(total);
+    $('o-cov').textContent = (cov < 1 ? cov.toFixed(2) : cov.toFixed(1)) + '%';
+    $('o-unseen').textContent = nf(total - reviewed);
+    $('o-hours').textContent = nf(reviewed * v.min / 60);
+    $('o-bar').style.width = Math.max(cov, 0.6) + '%';
+    const full = total * v.min / 60;
+    $('o-text').textContent = T('Reviewing every interaction by hand would take about {h} hours a month, roughly {f} full-time reviewers.').replace('{h}', nf(full)).replace('{f}', nf(full / 160));
+  }
+  F.forEach(k => { const r = $('r-' + k), n = $('n-' + k); r.addEventListener('input', () => { n.value = r.value; calc(); }); n.addEventListener('input', () => { r.value = n.value; calc(); }); });
+
+  document.addEventListener('click', e => { const a = e.target.closest('[data-need]'); if (a) $('need').value = a.dataset.need; });
+
+  /* contact form */
+  const f = $('cf'), msg = $('cfMsg');
+  const say = (t, err) => { msg.textContent = t; msg.className = err ? 'err' : ''; msg.style.display = 'block'; };
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(f).entries());
+    if (d.name.trim().length < 2 || d.org.trim().length < 2 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email.trim())) return say(T('Please add your name, organisation and a valid email address.'), true);
+    const b = f.querySelector('button'); b.disabled = true;
+    try {
+      const r = await fetch('api/contact.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || 'The request could not be sent right now.');
+      f.reset(); say(T('Thank you. Your request has been sent; we will reply within one business day.'));
+    } catch (x) { say(T(x.message) + ' ' + T('You can also email') + ' sales@assurestream.com.', true); }
+    b.disabled = false;
+  });
+  /* ---------- languages ---------- */
+  const LANGS = ['en', 'fr', 'pt', 'es', 'ar', 'zh', 'sw', 'de'];
+  const ATTRS = ['placeholder', 'aria-label', 'alt'];
+  let dict = {}, items = null;
+  function T(s) { return dict[s] || s; }
+  window.QXT = T;
+  function collect() {
+    items = [];
+    const ok = n => { for (let p = n.parentElement; p; p = p.parentElement) { if (/^(SCRIPT|STYLE|NOSCRIPT|svg)$/i.test(p.tagName) || p.classList.contains('qxg') || p.hasAttribute('data-noi18n')) return false; } return true; };
+    const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let n; (n = w.nextNode());) { const v = n.nodeValue.trim(); if (v && /\p{L}{2}/u.test(v) && ok(n)) items.push({ n, en: v, pre: n.nodeValue.match(/^\s*/)[0], post: n.nodeValue.match(/\s*$/)[0] }); }
+    document.querySelectorAll(ATTRS.map(a => `[${a}]`).join(',')).forEach(el => { if (!ok(el.firstChild || el) || el.closest('.qxg')) return; ATTRS.forEach(a => { const v = el.getAttribute(a); if (v && /\p{L}{2}/u.test(v)) items.push({ el, a, en: v }); }); });
+    const md = document.querySelector('meta[name=description]');
+    items.push({ title: true, en: document.title }, { el: md, a: 'content', en: md.content });
+  }
+  window.QXStrings = () => { if (!items) collect(); return [...new Set(items.map(i => i.en))]; };
+  function apply(l) {
+    if (!items) collect();
+    items.forEach(i => { const v = T(i.en); if (i.n) i.n.nodeValue = i.pre + v + i.post; else if (i.title) document.title = v; else i.el.setAttribute(i.a, v); });
+    document.documentElement.lang = l; document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+  }
+  const cache = { en: {} };
+  async function load(l) {
+    if (cache[l]) return cache[l];
+    let r = await fetch('i18n/' + l + '.json').catch(() => null);
+    if (!r || !r.ok) r = await fetch('api/translate.php?lang=' + l).catch(() => null);
+    if (!r || !r.ok) throw new Error('unavailable');
+    return (cache[l] = await r.json());
+  }
+  async function setLang(l, save) {
+    if (!LANGS.includes(l)) l = 'en';
+    document.body.classList.add('i18n-busy');
+    try { dict = await load(l); } catch (e) { dict = {}; l = 'en'; }
+    apply(l); document.body.classList.remove('i18n-busy');
+    if (save) try { localStorage.setItem('as_lang', l); } catch (e) { }
+  }
+  document.addEventListener('click', e => { const b = e.target.closest('.qxg [data-l]'); if (b) setLang(b.dataset.l, true); });
+  let start = new URLSearchParams(location.search).get('lang');
+  try { start = start || localStorage.getItem('as_lang'); } catch (e) { }
+  start = start || (navigator.language || 'en').slice(0, 2);
+  collect();
+  if (start !== 'en' && LANGS.includes(start)) setLang(start, false); else document.documentElement.lang = 'en';
+  calc();
+  const _apply = apply; apply = function (l) { _apply(l); calc(); };
+})();
+</script>
+</body>
+</html>
